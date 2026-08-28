@@ -287,6 +287,7 @@ Jika instalasi berhasil, akan muncul pesan konfirmasi seperti gambar di bawah:
 ## Referensi
 
 - [Docker Official Website](https://www.docker.com)
+- [Docker Manuals Official Website](https://docs.docker.com/manuals/)
 - [Get Started with Docker Desktop](https://www.docker.com/products/docker-desktop)
 - [Install Docker Engine](https://docs.docker.com/engine/install/)
 - [Install Docker Compose](https://docs.docker.com/compose/install/)
