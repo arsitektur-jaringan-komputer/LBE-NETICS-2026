@@ -14,6 +14,8 @@ Namun bagaimana cara kita deploy sebuah web-application yang menggunakan berbaga
 
 Docker adalah sebuah platform yang memungkinkan pengembang perangkat lunak untuk membuat, mengemas, dan menjalankan aplikasi dalam wadah yang dapat diisolasi secara mandiri, disebut container. Container dalam Docker berfungsi seperti lingkungan eksekusi yang terisolasi untuk menjalankan aplikasi, termasuk kode sumber, runtime, dan dependensi yang diperlukan.
 
+![Logo Docker](img/docker.png)
+
 Dengan Docker, pengembang dapat membuat wadah yang konsisten dan portabel, yang dapat dijalankan di berbagai lingkungan komputasi, termasuk mesin lokal, server cloud, atau lingkungan pengembangan dan produksi yang berbeda. Docker memungkinkan aplikasi dan dependensinya diisolasi, sehingga aplikasi dapat dijalankan secara konsisten di berbagai lingkungan tanpa mengganggu host operating system atau aplikasi lainnya.
 
 ## Cara Kerja
@@ -34,27 +36,40 @@ Sedangkan *Containerization* adalah teknologi yang memungkinkan pengemasan aplik
 
 ## Arsitektur Docker
 
+![Arsitektur Docker](img/architecture.png)
+
+![alt text](img/docker-arch.png)
+
 ### Docker Daemon
 
 Docker Daemon adalah komponen yang berjalan di latar belakang (background) pada host dan bertanggung jawab untuk menjalankan dan mengelola Docker Object seperti images, container, network, dan lain-lain. Docker Daemon adalah proses yang berjalan di dalam sistem operasi host dan menerima perintah dari Docker Client untuk membuat, menjalankan, menghentikan, dan mengelola Docker Object. Docker Daemon juga bertanggung jawab untuk mengelola sumber daya host seperti CPU, memori, dan jaringan yang digunakan oleh Docker Object. Untuk mengaktifkan docker daemon dapat menggunakan command ` sudo systemctl start docker
 ` jika menggunakan linux atau dengan click icon docker di operating system untuk menyalakan docker jika menggunakan windows/mac.
 
+![Docker Daemon](./assets/img/docker-daemon.png)
 
 ### Docker Client
 
 Docker Client adalah antarmuka pengguna berbasis command-line atau GUI yang digunakan untuk berinteraksi dengan Docker. Docker Client memungkinkan pengguna untuk menjalankan perintah-perintah Docker untuk membuat, mengelola, dan mengontrol layanan pada Docker. Docker Client berkomunikasi dengan Docker Daemon untuk mengirimkan perintah-perintah Docker dan menerima output layanan Docker yang sedang berjalan.
 
+![Docker Client](./assets/img/docker-client.png)
+
 ### Docker Objects
 
 Docker Objects adalah komponen dasar yang terdapat di Docker. Beberapa contoh Docker Objects meliputi image, container, volume, dan network yang akan dijelaskan pada modul selanjutnya. 
+
+![Docker Objects](./assets/img/docker-objects.png)
 
 ### Docker Registry
 
 Docker Registry adalah repositori yang digunakan untuk menyimpan dan berbagi Docker Image. Docker Registry berfungsi sebagai tempat penyimpanan untuk Docker Image yang dapat diakses oleh pengguna Docker dari berbagai lokasi. Docker Hub, yang merupakan Docker public registry, adalah salah satu contoh Docker Registry yang sering digunakan untuk menyimpan dan berbagi Docker Image secara publik. Docker Registry fungsinya mirip seperti github, tetapi untuk image docker. Selain Docker Hub, pengguna juga dapat membuat Docker Registry pribadi untuk menyimpan Docker Image. 
 
+![Docker Registry](./assets/img/docker-regis.png)
+
 ### Docker Service Dasar
 
 #### Docker Container
+
+![Docker Container](./assets/img/docker-container.png)
 
 ##### Pengertian Docker Container
 
@@ -121,7 +136,7 @@ Untuk menggunakan shell di Docker Container bisa dengan menggunakan perintah **`
 
 Contoh penggunaan:
 
-<gambar>
+![Docker Shell Usage](./assets/img/docker-shell-usage.png)
 
 ```
 docker exec -it my_container /bin/sh
@@ -137,9 +152,11 @@ docker exec my_container ls /etc/nginx
 
 Perintah di atas akan menampilkan isi dari direktori **`/etc/nginx`** di dalam container dengan nama **`my_container`**.
 
-<gambar>
+![Docker exec ls](./assets/img/docker-exec-ls.png)
 
 #### Docker Image
+
+![Docker Image](./assets/img/docker-image.png)
 
 ##### Pengertian Docker Image
 
@@ -192,6 +209,8 @@ Setiap perubahan yang terjadi pada Docker Image, seperti menambahkan file, mempe
 
 Dan nantinya jika dilakukan **`docker run`** pada image akan menambah satu layer, yaitu writable layer yang disebut dengan container layer. Jadi sebuah image tidak dapat melakukan edit kecuali jika membuild image baru dan hanya dapat melakukan edit saat nanti sudah dalam bentuk container.
 
+![Docker Layer example](./assets/img/docker-layer-example.png)
+
 ### Dockerfile
 
 #### Pengertian Dockerfile
@@ -224,10 +243,134 @@ Berikut adalah beberapa perintah penting beserta penjelasannya yang bisa diimple
 | `expose` | menentukan port yang akan di-expose dari container ke host. |
 | `volume` | menentukan direktori yang akan di-mount sebagai volume di dalam container. |
 
+#### Contoh struktur file Dockerfile
+
+Sebuah Dockerfile terdiri dari sekumpulan instruksi yang dieksekusi secara berurutan dari atas ke bawah, di mana setiap instruksi umumnya akan menghasilkan satu layer baru pada image. Berikut contoh sederhana Dockerfile untuk aplikasi web berbasis Python (Flask):
+ 
+```dockerfile
+# Menentukan base image yang digunakan
+FROM python:3.11-slim
+ 
+# Menentukan direktori kerja di dalam container
+WORKDIR /app
+ 
+# Menyalin file requirements.txt dari host ke dalam image
+COPY requirements.txt .
+ 
+# Menjalankan perintah instalasi dependensi
+RUN pip install --no-cache-dir -r requirements.txt
+ 
+# Menyalin seluruh source code aplikasi ke dalam image
+COPY . .
+ 
+# Menentukan environment variable
+ENV FLASK_ENV=production
+ 
+# Menentukan port yang akan di-expose dari container
+EXPOSE 5000
+ 
+# Menentukan perintah default yang dijalankan saat container di-start
+CMD ["python", "app.py"]
+```
+ 
+Penjelasan struktur di atas:
+- `FROM` selalu menjadi instruksi pertama yang menentukan base image sebagai fondasi awal pembuatan image.
+- `WORKDIR` menentukan direktori kerja di dalam container, sehingga instruksi-instruksi setelahnya (seperti `COPY` dan `RUN`) dieksekusi relatif terhadap direktori tersebut.
+- `COPY` digunakan untuk menyalin file secara bertahap; memisahkan `COPY requirements.txt .` dari `COPY . .` bertujuan agar Docker dapat memanfaatkan *layer caching*—instalasi dependensi tidak perlu diulang jika hanya source code yang berubah.
+- `RUN` mengeksekusi perintah pada saat proses build, umumnya digunakan untuk instalasi package atau dependensi.
+- `ENV` menentukan environment variable yang akan tersedia di dalam container saat berjalan.
+- `EXPOSE` bersifat dokumentatif, menandakan port mana yang digunakan aplikasi di dalam container (tidak secara otomatis mem-publish port ke host).
+- `CMD` menentukan perintah default yang dijalankan ketika container di-start, dan dapat di-override saat menjalankan `docker run` dengan menambahkan perintah lain di akhir.
+
+> [!IMPORTANT]
+> Urutan instruksi pada Dockerfile berpengaruh terhadap efisiensi build. Instruksi yang jarang berubah (seperti instalasi dependensi) sebaiknya diletakkan di bagian atas, sedangkan instruksi yang sering berubah (seperti penyalinan source code) diletakkan di bagian bawah, agar Docker dapat memaksimalkan penggunaan cache layer dan mempercepat proses build.
+
 ### Docker Compose
 
 #### Pengertian Docker Compose
 
+Docker Compose adalah alat untuk mendefinisikan dan menjalankan aplikasi multi-kontainer. Alat ini merupakan kunci untuk mewujudkan pengalaman pengembangan dan penerapan (deployment) yang efisien dan lebih lancar, seperti pada aplikasi yang membutuhkan beberapa service sekaligus.
+
+Tanpa Docker Compose, menjalankan aplikasi multi-container berarti harus menjalankan setiap container satu per satu menggunakan perintah `docker run` yang panjang dan berulang, lengkap dengan opsi network, volume, environment variable, dan port masing-masing. Hal ini rentan human error dan sulit direplikasi secara konsisten oleh anggota tim lain.
+
+Docker Compose menyederhanakan pengendalian seluruh _stack_ aplikasi Anda, sehingga memudahkan pengelolaan layanan, jaringan, dan volume dalam satu file konfigurasi YAML. Kemudian dengan hanya satu perintah, seorang developer dapat membuat dan menjalankan semua layanan yang tercantum dalam file konfigurasi compose tersebut.
+
+Docker Compose dapat digunakan di berbagai environment, mulai dari _production_, _staging_, _development_, dan _testing_, hingga alur kerja CI.
+
 #### Perintah Docker Compose
 
+Berikut adalah beberapa perintah penting beserta penjelasannya pada Docker Compose (dijalankan dengan `docker compose [COMMAND]`):
+ 
+| Perintah | Deskripsi |
+| -------- | --------- |
+| `up` | Membuat dan menjalankan seluruh service yang didefinisikan dalam file compose. Tambahkan opsi `-d` untuk menjalankan di background (detached mode). |
+| `down` | Menghentikan dan menghapus seluruh container, network yang dibuat oleh `up`. Tambahkan opsi `-v` untuk turut menghapus volume. |
+| `start` | Menjalankan kembali service yang sudah pernah dibuat namun sedang berhenti. |
+| `stop` | Menghentikan service yang sedang berjalan tanpa menghapusnya. |
+| `restart` | Merestart service yang sedang berjalan. |
+| `build` | Membangun (build) ulang image untuk service yang menggunakan konfigurasi `build`. |
+| `ps` | Menampilkan status seluruh service/container dalam project compose. |
+| `logs` | Menampilkan log dari seluruh service atau service tertentu. Tambahkan opsi `-f` untuk melihat log secara real-time. |
+| `exec` | Menjalankan perintah di dalam service/container yang sedang berjalan, mirip `docker exec`. |
+| `pull` | Mengunduh image terbaru untuk seluruh service. |
+| `config` | Memvalidasi dan menampilkan konfigurasi compose file yang telah digabungkan. |
+
+#### Struktur file `docker-compose.yml`
+
+Sebuah file `docker-compose.yml` umumnya terdiri dari beberapa bagian utama:
+ 
+| Bagian | Deskripsi |
+| ------ | --------- |
+| `version` | Menentukan versi format Compose file yang digunakan (opsional pada versi Compose terbaru). |
+| `services` | Mendefinisikan setiap container/service yang akan dijalankan, termasuk image yang dipakai, port, environment variable, dan dependensinya. |
+| `networks` | Mendefinisikan network kustom agar antar service dapat saling berkomunikasi. |
+| `volumes` | Mendefinisikan volume untuk menyimpan data secara persisten di luar container. |
+
+Contoh sederhana dari `docker-compose.yml` untuk aplikasi web dengan _stack_ _backend_ Python Flask dan PostgreSQL DB
+
+```yaml
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/mydb
+    depends_on:
+      - db
+    networks:
+      - app-network
+ 
+  db:
+    image: postgres:16
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mydb
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+ 
+networks:
+  app-network:
+ 
+volumes:
+  db-data:
+```
+
+Pada contoh di atas:
+- Service `web` di-build dari Dockerfile pada direktori saat ini (`.`), lalu di-expose ke port 5000.
+- Service `db` menggunakan image resmi `postgres:16` dari Docker Hub.
+- `depends_on` memastikan service `db` dijalankan terlebih dahulu sebelum `web`.
+- `volumes` memastikan data database tetap tersimpan meskipun container `db` dihapus dan dibuat ulang.
+- `networks` memungkinkan kedua service saling berkomunikasi menggunakan nama service sebagai hostname (misal `db` pada `DATABASE_URL`).
+
 ## Sumber Referensi
+
+1. https://www.atlassian.com/agile/software-development/software-deployment
+2. https://www.redhat.com/en/topics/devops/what-is-ci-cd#continuous-deployment
+3. https://docs.docker.com.xy2401.com/engine/docker-overview/
+4. https://insights.daffodilsw.com/blog/application-containerization-vs-virtualization-how-are-they-different
+5. https://docs.docker.com/compose/
+6. Bullington-McGuire, R., Dennis, A. K., & Schwartz, M. (2020). Docker For Developers. Packt.
