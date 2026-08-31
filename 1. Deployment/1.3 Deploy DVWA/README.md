@@ -36,8 +36,21 @@ docker compose up -d
  
 Docker Compose ini adalah utility dari Docker untuk melakukan otomasi deployment dari beberapa container secara sekaligus, sehingga kita tidak perlu men-setup container tiap-tiap komponen dari sebuah aplikasi (e.g., database, frontend, backend, etc.). 
 Compose file (`compose.yml`) yang ada di repositori ini sudah mendefinisikan dua service, yaitu `dvwa` (image `ghcr.io/digininja/dvwa`) dan `db` (image `mariadb:10`), lengkap dengan network dan port mapping-nya.
- 
-> **Catatan:** DVWA yang berjalan lewat container melakukan listen pada port **4280**, bukan port 80 seperti biasanya. Setelah container berjalan, DVWA dapat diakses lewat `http://localhost:4280`.
+
+![DVWA Method 1](img/dvwa-clonegithub.png) 
+
+##### 3. Docker Compose Down
+
+Untuk menghentikan container yang dijalankan pada command sebelumnya dan menghentikan semua service yang berjalan di container DVWA, dapat menggunakan command
+
+```
+docker compose down
+```
+
+![alt text](img/dvwa-stopclone.png)
+
+> [!IMPORTANT]
+> Catatan: DVWA yang berjalan lewat container melakukan listen pada port **4280**, bukan port 80 seperti biasanya. Setelah container berjalan, DVWA dapat diakses lewat `http://localhost:4280`.
 
 
 ### Method 2 : Docker Compose
@@ -92,7 +105,7 @@ docker start dvwa-container dvwa-mysql
  
 Saat kedua docker container berhasil di-_run_, kita dapat mengaksesnya lewat `http://127.0.0.1:4280` atau `http://localhost:4280`.
  
-![alt text](./assets/dvwa-deployed.png)
+![alt text](img/dvwa-deployed.png)
  
 ##### 5. Managing Container
  
@@ -106,6 +119,8 @@ Untuk melihat status seluruh container yang sedang berjalan, gunakan:
 ```
 docker ps
 ```
+
+![alt text](img/dvwa-managing-container.png)
 
 ### Other Method
 Bisa melihat dokumentasi resmi dari DVWA di repository githubnya [DVWA](https://github.com/digininja/DVWA)
@@ -127,13 +142,13 @@ Pada page ini kalian akan input credentials berikut:
 
 ### 2. Database Setup
 
-![alt text](img/reset-database.png)
- 
 Selanjutnya, pada page `setup.php`, kalian bisa click **'Create/Reset Database'**.
- 
-![alt text](img/reset-database2.png)
+
+![alt text](img/reset-db.png)
  
 Setelah reset database berhasil, kalian akan mendapatkan output berikut di bawah page tersebut. Kalian bisa klik login lalu masukkan credentials yang sama di tahap 1.
+
+![alt text](img/reset-db2.png)
 
 ### 3. Dah beres tinggal hacking
 
