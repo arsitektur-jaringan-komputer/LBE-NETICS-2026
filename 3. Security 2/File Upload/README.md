@@ -117,6 +117,6 @@ Dan beberapa lapisan keamanan lainnya untuk validasi dan sanitasi, seperti valid
 
 ## Referensi
 
-1. https://portswigger.net/web-security/file-upload
-2. https://cyberw1ng.medium.com/understanding-file-upload-vulnerabilities-in-web-app-penetration-testing-6de583fba63f
-3. https://github.com/daffainfo/AllAboutBugBounty/blob/master/Arbitrary%20File%20Upload.md
+1. [Portswigger - File Upload](https://portswigger.net/web-security/file-upload)
+2. [https://cyberw1ng.medium.com/understanding-file-upload-vulnerabilities-in-web-app-penetration-testing-6de583fba63f](https://cyberw1ng.medium.com/understanding-file-upload-vulnerabilities-in-web-app-penetration-testing-6de583fba63f)
+3. [https://github.com/daffainfo/AllAboutBugBounty/blob/master/Arbitrary%20File%20Upload.md](https://github.com/daffainfo/AllAboutBugBounty/blob/master/Arbitrary%20File%20Upload.md)

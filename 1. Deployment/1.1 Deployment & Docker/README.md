@@ -376,9 +376,9 @@ Pada contoh di atas:
 
 ## Sumber Referensi
 
-1. https://www.atlassian.com/agile/software-development/software-deployment
-2. https://www.redhat.com/en/topics/devops/what-is-ci-cd#continuous-deployment
-3. https://docs.docker.com.xy2401.com/engine/docker-overview/
-4. https://insights.daffodilsw.com/blog/application-containerization-vs-virtualization-how-are-they-different
-5. https://docs.docker.com/compose/
+1. [Atlassian - Software Deployment](https://www.atlassian.com/agile/software-development/software-deployment)
+2. [Redhat - CI/CD](https://www.redhat.com/en/topics/devops/what-is-ci-cd#continuous-deployment)
+3. [Docs Docker Engine Overview](https://docs.docker.com.xy2401.com/engine/docker-overview/)
+4. [Application Containerization vs Virtualization, How are they different](https://insights.daffodilsw.com/blog/application-containerization-vs-virtualization-how-are-they-different)
+5. [Docker Compose](https://docs.docker.com/compose/)
 6. Bullington-McGuire, R., Dennis, A. K., & Schwartz, M. (2020). Docker For Developers. Packt.

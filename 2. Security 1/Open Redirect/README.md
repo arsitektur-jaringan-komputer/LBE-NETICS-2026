@@ -84,6 +84,6 @@ exit;
 
 ## Referensi
 
-1. https://cwe.mitre.org/data/definitions/601.html
-2. https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html
-3. https://owasp.org/www-project-web-security-testing-guide/v41/4-Web_Application_Security_Testing/11-Client_Side_Testing/04-Testing_for_Client_Side_URL_Redirect
+1. [MITRE - CWE 601](https://cwe.mitre.org/data/definitions/601.html)
+2. [OWASP - Unvalidated Redirects and Forwards Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html)
+3. [OWASP - Web Application Security Testing - Client_Side_Testing](https://owasp.org/www-project-web-security-testing-guide/v41/4-Web_Application_Security_Testing/11-Client_Side_Testing/04-Testing_for_Client_Side_URL_Redirect)

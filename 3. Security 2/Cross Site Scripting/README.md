@@ -115,5 +115,5 @@ Hasil render pada halaman korban:
 
 ## Referensi
 
-1. https://portswigger.net/web-security/cross-site-scripting
-2. https://owasp.org/www-community/attacks/xss/
+1. [Portswigger - XSS](https://portswigger.net/web-security/cross-site-scripting)
+2. [OWASP - XSS Attack](https://owasp.org/www-community/attacks/xss/)

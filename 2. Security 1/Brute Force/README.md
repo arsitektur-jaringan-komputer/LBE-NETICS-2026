@@ -94,8 +94,8 @@ Beberapa langkah yang dapat diterapkan untuk mencegah atau memperlambat brute fo
 
 ## Referensi
 
-1. CompTIA PenTest+ Student Guide (PT0-002)
-2. https://wiki.owasp.org/index.php/Testing_for_Brute_Force_(OWASP-AT-004)
-3. https://www.crowdstrike.com/cybersecurity-101/brute-force-attacks/
-4. https://hashcat.net/wiki/
-5. https://github.com/maurosoria/dirsearch
+1. [CompTIA PenTest+ Student Guide (PT0-002)](https://dokumen.pub/comptia-pentest-certification-all-in-one-exam-guide-second-edition-exam-pt0-002-1264274890-9781264274895.html)
+2. [OWASP-AT-004](https://wiki.owasp.org/index.php/Testing_for_Brute_Force_(OWASP-AT-004))
+3. [Crowdstrike Cybersecurity 101 - Brute force attacks](https://www.crowdstrike.com/cybersecurity-101/brute-force-attacks/)
+4. [Hashcat Docs](https://hashcat.net/wiki/)
+5. [Dirsearch Docs](https://github.com/maurosoria/dirsearch)

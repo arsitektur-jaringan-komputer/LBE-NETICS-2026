@@ -99,6 +99,6 @@ Jika nilai parameter tidak ada dalam array variabel whitelist, maka web hanya ak
 
 ## Referensi
 
-1. https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_Local_File_Inclusion
-2. https://portswigger.net/web-security/file-path-traversal
+1. [OWASP - Web Application Security Testing - Input Validation Testing (11.1-Testing_for_Local_File_Inclusion)](https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_Local_File_Inclusion)
+2. [Portswigger - File path traversal](https://portswigger.net/web-security/file-path-traversal)
 

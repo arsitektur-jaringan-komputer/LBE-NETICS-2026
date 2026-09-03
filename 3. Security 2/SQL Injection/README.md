@@ -111,5 +111,6 @@ Pada kode diatas menggunakan `prepare statement`, yang dimana input dari user ak
 
 ## Referensi
 
-1. https://portswigger.net/web-security/sql-injection
-2. https://owasp.org/www-community/attacks/SQL_Injection
+1. [Portswigger - SQL Injection](https://portswigger.net/web-security/sql-injection)
+2. [OWASP - SQL Injection](https://owasp.org/www-community/attacks/SQL_Injection)
+3. [PayloadsAllTheThings Github Repo - SQL Injection](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SQL%20Injection)

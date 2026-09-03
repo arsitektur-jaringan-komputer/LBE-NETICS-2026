@@ -61,5 +61,5 @@ contoh:
 
 ## Referensi
 
-1. https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP
-2. https://portswigger.net/web-security/cross-site-scripting/content-security-policy
+1. [Mozilla Dev - Guides on CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)
+2. [Portswigger - CSP](https://portswigger.net/web-security/cross-site-scripting/content-security-policy)

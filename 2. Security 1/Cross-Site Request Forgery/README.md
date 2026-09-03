@@ -59,5 +59,5 @@ Kalau dalam contoh diatas, penyerang akan menyamarkan halaman bait nya menjadi b
 
 ## Referensi
 
-1. https://portswigger.net/web-security/csrf
-2. https://owasp.org/www-community/attacks/csrf
+1. [Portswigger - CSRF](https://portswigger.net/web-security/csrf)
+2. [OWASP - CSRF](https://owasp.org/www-community/attacks/csrf)

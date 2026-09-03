@@ -138,6 +138,6 @@ Jika ingin menggunakan browser sendiri (Firefox/Chrome) di luar Burp's browser:
 
 ## Referensi
 
-- https://portswigger.net/burp
-- https://portswigger.net/burp/documentation
-- https://portswigger.net/burp/downloads
+- [Portswigger - Burp Software](https://portswigger.net/burp)
+- [Portswigger - Burp Software Documentation](https://portswigger.net/burp/documentation)
+- [Portswigger - Burp Software Download](https://portswigger.net/burp/downloads)

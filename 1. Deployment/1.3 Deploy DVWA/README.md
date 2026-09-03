@@ -163,7 +163,7 @@ terdapat section troubleshooting juga pada kasus-kasus umum yang bisa terjadi pa
 
 ## Referensi
 
-1. [DVWA Official Repository — digininja/DVWA](https://github.com/digininja/DVWA)
+1. [DVWA Official Repository - digininja/DVWA](https://github.com/digininja/DVWA)
 2. [DVWA Docker Image Packages (GitHub Container Registry)](https://github.com/digininja/DVWA/pkgs/container/dvwa)
 3. [Setting-Up Damn Vulnerable Web Application (DVWA) in Docker — polarpwn.gg](https://polarpwn.netlify.app/blog/setting-up-dvwa/)
-4. [How to Setup DVWA on Docker — Medium (Nancy Muriithi)](https://medium.com/@Muriithi_nancy/how-to-setup-dvwa-on-docker-a3819ec25f78)
+4. [How to Setup DVWA on Docker - Medium (Nancy Muriithi)](https://medium.com/@Muriithi_nancy/how-to-setup-dvwa-on-docker-a3819ec25f78)

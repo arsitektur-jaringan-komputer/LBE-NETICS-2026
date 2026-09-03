@@ -85,5 +85,5 @@ Penjelasan kode diatas sebagai berikut:
 
 ## Referensi
 
-1. https://portswigger.net/web-security/os-command-injection
-2. https://owasp.org/www-community/attacks/Command_Injection
+1. [Portswigger - OS Command Injection](https://portswigger.net/web-security/os-command-injection)
+2. [OWASp - Command Injection](https://owasp.org/www-community/attacks/Command_Injection)
